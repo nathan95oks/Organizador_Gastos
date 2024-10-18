@@ -2,6 +2,8 @@
 
 npm install
 
+npm install cypress
+
 #### Comandos de uso:
 
 Ejecutar web-sever local parcel:
