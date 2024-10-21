@@ -1,15 +1,15 @@
 let ingresos = [];
 
-function agregarIngreso(monto, fecha) {
-
-    const ingresoExistente = ingresos.find(ingreso => ingreso.monto === monto && ingreso.fecha ===fecha);
-    if(ingresoExistente){
-        return null;
+const agregarIngreso = (monto, fecha) => {
+    if (typeof monto === 'number' && !isNaN(monto) && fecha) {
+        ingresos.push({ monto, fecha });
+    } else {
+        console.error('Entrada no válida: ', monto);
     }
+};
 
-    const nuevoIngreso = { monto, fecha };
-    ingresos.push(nuevoIngreso);
-    return nuevoIngreso;
-}
+const getIngresos = () => {
+    return ingresos;
+};
 
-module.exports = { agregarIngreso, ingresos };
+module.exports = { agregarIngreso, getIngresos, ingresos };
