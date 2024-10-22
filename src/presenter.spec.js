@@ -15,7 +15,7 @@ describe('presenter.js', () => {
             </form>
         `);
         document = dom.window.document;
-
+           
         ingresos.length = 0;
 
         const ingresoForm = document.getElementById('ingreso-form');

@@ -22,7 +22,7 @@ describe('ingresos.js', () => {
         const fecha = '2024-10-01';
 
         agregarIngreso(monto, fecha);
-
-        expect(ingresos.length).toBe(0); 
+        
+        expect(ingresos.length).toBe(0);
     });
 });
