@@ -1,6 +1,6 @@
 console.log('Ejecutando pruebas de presenter.spec.js');
 
-const { agregarIngreso, ingresos } = require('./ingresos'); 
+const { agregarIngreso, ingresos } = require('../../src/ingresos'); 
 const { JSDOM } = require('jsdom');
 
 describe('presenter.js', () => {
