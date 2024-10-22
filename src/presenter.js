@@ -1,4 +1,14 @@
-const { agregarIngreso } = require('./ingresos'); 
+let ingresos = [];
+
+const agregarIngreso = (monto, fecha) => {
+    if (typeof monto === 'number' && !isNaN(monto) && fecha) {
+        ingresos.push({ monto, fecha });
+    }
+};
+
+const getIngresos = () => {
+    return ingresos;
+};
 
 const ingresoForm = document.getElementById('ingreso-form');
 
@@ -19,4 +29,4 @@ ingresoForm.addEventListener('submit', (event) => {
     });
 });
 
-module.exports = { agregarIngreso };
+module.exports = { agregarIngreso, getIngresos, ingresos };
