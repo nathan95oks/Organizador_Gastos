@@ -1,4 +1,5 @@
 let ingresos = [];
+let gastos = [];
 
 const agregarIngreso = (monto, fecha) => {
     if (typeof monto === 'number' && !isNaN(monto) && fecha) {
@@ -29,4 +30,33 @@ ingresoForm.addEventListener('submit', (event) => {
     });
 });
 
+
+const agregarGasto = (monto, fecha) => {
+    if (typeof monto === 'number' && !isNaN(monto) && fecha) {
+        gastos.push({ monto, fecha });
+    }
+};
+
+const mostrarGastos = () => {
+    const resultadoDiv = document.getElementById('resultado-div');
+    resultadoDiv.innerHTML = ''; // Limpiar contenido anterior
+
+    gastos.forEach((gasto) => {
+        const p = document.createElement('p');
+        p.textContent = `Gasto: ${gasto.monto} - Fecha: ${gasto.fecha}`;
+        resultadoDiv.appendChild(p);
+    });
+};
+
+document.getElementById('gasto-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const monto = parseFloat(document.getElementById('gasto').value);
+    const fecha = document.getElementById('fechaGasto').value;
+
+    agregarGasto(monto, fecha);
+    mostrarGastos();
+});
+
 module.exports = { agregarIngreso, getIngresos, ingresos };
+module.exports = { agregarGasto, mostrarGastos, gastos };
