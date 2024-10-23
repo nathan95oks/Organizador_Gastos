@@ -1,28 +1,37 @@
-import { agregarGasto, gastos } from '../src/gastos';
-
-describe('gastos.js - Cypress', () => {
+describe('Gastos - Cypress Tests', () => {
     beforeEach(() => {
-        gastos.length = 0; // Reiniciar gastos antes de cada prueba
-        cy.visit('index.html'); 
+        cy.visit('index.html');
+
+        cy.window().then((win) => {
+            win.gastos.length = 0;
+        });
     });
 
-    it('debe agregar y mostrar un gasto correctamente desde el formulario', () => {
-        const monto = 150;
-        const fecha = '2024-10-10';
+    it('debe agregar gastos correctamente desde el formulario', () => {
+        const monto = '50, 75, 100';
+        const fecha = '2024-10-02';
 
-        cy.get('#gasto').type(monto);
-        cy.get('#fechaGasto').type(fecha);
+        cy.get('#gasto').clear().type(monto);
+        cy.get('#fechaGasto').clear().type(fecha);
         cy.get('#gasto-form').submit();
 
-        cy.get('#resultado-div p').should('have.length', 1);
-        cy.get('#resultado-div p').first().should('contain', `Gasto: ${monto} - Fecha: ${fecha}`);
+        cy.window().then((win) => {
+            expect(win.gastos.length).to.equal(3);
+            expect(win.gastos).to.deep.equal([
+                { monto: 50, fecha: '2024-10-02' },
+                { monto: 75, fecha: '2024-10-02' },
+                { monto: 100, fecha: '2024-10-02' },
+            ]);
+        });
     });
 
-    it('no debe agregar un gasto con entrada no válida', () => {
-        cy.get('#gasto').type('invalido');
-        cy.get('#fechaGasto').type('2024-10-10');
+    it('debe manejar entradas no válidas en el formulario', () => {
+        cy.get('#gasto').clear().type('invalid');
+        cy.get('#fechaGasto').clear().type('2024-10-02');
         cy.get('#gasto-form').submit();
 
-        cy.get('#resultado-div p').should('have.length', 0); 
+        cy.window().then((win) => {
+            expect(win.gastos.length).to.equal(0);
+        });
     });
 });
