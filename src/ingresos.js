@@ -10,4 +10,6 @@ const getIngresos = () => {
     return ingresos;
 };
 
+
+
 module.exports = { agregarIngreso, getIngresos, ingresos };
