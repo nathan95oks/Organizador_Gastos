@@ -7,23 +7,25 @@
     <h1>Gastos</h1>
     <form id="gasto-form">
       <label for="gasto">Monto del Gasto:</label>
-      <input type="number" id="gasto" />
-      <label for="fechaGasto">Fecha del deposito:</label>
+      <input type="text" id="gasto" />
+      <label for="fechaGasto">Fecha del gasto:</label>
       <input type="date" id="fechaGasto" />
       <input type="submit" value="Confirmar Gasto" id="confirmar-gasto-boton" />
     </form>
     <div id="resultado-div"></div>
 
-
-
     <h1>Ingresos</h1>
     <form id="ingreso-form">
       <label for="ingreso">Monto del Ingreso:</label>
-      <input type="number" id="ingreso" />
-      <label for="fechaIngreso">Fecha del deposito:</label>
+      <input type="text" id="ingreso" />
+      <label for="fechaIngreso">Fecha del ingreso:</label>
       <input type="date" id="fechaIngreso" />
       <input type="submit" value="Confirmar Ingreso" id="confirmar-ingreso-boton" />
     </form>
+
+    <h2>Resultados</h2>
+    <div id="resultado-ingresos"></div>
+    <div id="resultado-gastos"></div>
 
     <script src="./src/presenter.js"></script>
   </body>
