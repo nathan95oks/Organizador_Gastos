@@ -6,15 +6,6 @@ const agregarIngreso = (monto, fecha) => {
     } ;
 };
 
-const SumarIngresos=()=>{
-    let totalSumarIngresos=0;
-    for (let i=0 ;i<ingresos.length;i++)
-    {
-       totalSumarIngresos+=ingresos[i].monto;
-    }
-    return totalSumarIngresos;
-   }
-
 
 const getIngresos = () => {
     return ingresos;
@@ -22,4 +13,4 @@ const getIngresos = () => {
 
 
 
-module.exports = { agregarIngreso, getIngresos, ingresos,SumarIngresos };
+module.exports = { agregarIngreso, getIngresos, ingresos };

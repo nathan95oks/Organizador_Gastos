@@ -13,7 +13,7 @@ describe('CalculoAhorroMostrar', () => {
         agregarGasto(500, '2024-10-22');
         const resultado = CalcularAhorroTotal();
         expect(resultado).toBe(500);
-
+        
     });
     
 });

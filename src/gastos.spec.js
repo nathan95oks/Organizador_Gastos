@@ -8,7 +8,7 @@ describe('gastos.js', () => {
     it('debe agregar un gasto correctamente', () => {
         const monto = 50;
         const fecha = '2024-10-02';
-
+        
         agregarGasto(monto, fecha);
 
         expect(gastos.length).toBe(1);

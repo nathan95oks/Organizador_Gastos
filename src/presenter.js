@@ -6,7 +6,8 @@ const agregarIngreso = (monto, fecha) => {
     if (typeof monto === 'number' && !isNaN(monto) && fecha) {
         ingresos.push({ monto, fecha });
         mostrarIngresos();
-        guardarIngresos();  
+        guardarIngresos();
+        mostrarAhorroTotal(); // Actualiza el ahorro después de agregar un ingreso
     }
 };
 
@@ -38,7 +39,7 @@ const cargarIngresos = () => {
     const datosGuardados = localStorage.getItem('ingresos');
     if (datosGuardados) {
         ingresos = JSON.parse(datosGuardados);
-        mostrarIngresos(); 
+        mostrarIngresos();
     }
 };
 
@@ -76,7 +77,13 @@ const agregarGasto = (monto, fecha) => {
         gastos.push({ monto, fecha });
         mostrarGastos();
         guardarGastos();
+        mostrarAhorroTotal(); // Actualiza el ahorro después de agregar un gasto
     }
+};
+
+// Obtener gastos
+const getGastos = () => {
+    return gastos;
 };
 
 // Mostrar los gastos y el total de gastos
@@ -117,33 +124,33 @@ const guardarGastos = () => {
 };
 
 // Cargar gastos desde localStorage
-function cargarGastos() {
-    const gastos = JSON.parse(localStorage.getItem('gastos')) || [];
-    const resultadoGastosDiv = document.getElementById('resultado-gastos');
-    const totalGastosDiv = document.getElementById('total-gastos');
-
-    if (gastos.length === 0) {
-        // Si no hay gastos, muestra el mensaje "No hay gastos registrados"
-        resultadoGastosDiv.textContent = 'No hay gastos registrados';
-        totalGastosDiv.textContent = 'Total de Gastos: $0';
-    } else {
-        // Si hay gastos, muestra la lista de gastos y el total
-        resultadoGastosDiv.textContent = '';
-        gastos.forEach(gasto => {
-            const gastoItem = document.createElement('div');
-            gastoItem.textContent = `Monto: $${gasto.monto} - Fecha: ${gasto.fecha}`;
-            resultadoGastosDiv.appendChild(gastoItem);
-        });
-
-        // Calcula el total de los gastos
-        const total = gastos.reduce((acc, gasto) => acc + gasto.monto, 0);
-        totalGastosDiv.textContent = `Total de Gastos: $${total}`;
+const cargarGastos = () => {
+    const datosGuardados = localStorage.getItem('gastos');
+    if (datosGuardados) {
+        gastos = JSON.parse(datosGuardados);
+        mostrarGastos();
     }
-}
+};
 
-// Llama a la función al cargar la página
+// Calcular el total de ahorro
+const calcularAhorro = () => {
+    const totalIngresos = ingresos.reduce((total, ingreso) => total + ingreso.monto, 0);
+    const totalGastos = gastos.reduce((total, gasto) => total + gasto.monto, 0);
+    return totalIngresos - totalGastos;
+};
+
+// Mostrar el ahorro total
+const mostrarAhorroTotal = () => {
+    const ahorroTotal = calcularAhorro();
+    const ahorroDiv = document.getElementById('resultado-ahorro');
+    ahorroDiv.textContent = `Ahorro Total: $${ahorroTotal}`;
+};
+
+// Cargar ingresos y gastos al cargar la página
 window.onload = function() {
     cargarGastos();
+    cargarIngresos();
+    mostrarAhorroTotal(); // Mostrar el ahorro total al cargar la página
 };
 
 // Manejar el formulario de gastos
@@ -180,6 +187,9 @@ if (typeof window !== 'undefined') {
     window.agregarGasto = agregarGasto;
     window.mostrarGastos = mostrarGastos;
     window.guardarGastos = guardarGastos;
+    window.getGastoTotal = getGastoTotal; // Añadido para acceso global
+    window.getIngresos = getIngresos; // Asegurarse de que getIngresos esté disponible
+    window.mostrarAhorroTotal = mostrarAhorroTotal; // Añadido para acceso global
 }
 
 // Cargar ingresos y gastos al cargar la página
