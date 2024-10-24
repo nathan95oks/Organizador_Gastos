@@ -20,7 +20,7 @@ describe('presenter.js', () => {
         const form = document.getElementById('ingreso-form');
         const ingresoInput = document.getElementById('ingreso');
         const fechaInput = document.getElementById('fechaIngreso');
-
+        
         const montos = ingresoInput.value.split(',').map(m => parseFloat(m.trim()));
         montos.forEach(monto => {
             if (!isNaN(monto)) {

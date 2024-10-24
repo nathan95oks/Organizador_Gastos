@@ -1,8 +1,11 @@
-const { agregarIngreso, ingresos } =  require('./ingresos');
+const { agregarIngreso, obtenerIngresos } = require('./ingresos.js');
 
 describe('ingresos.js', () => {
     beforeEach(() => {
-        ingresos.length = 0;
+        // Limpiar los ingresos antes de cada prueba
+        while (obtenerIngresos().length > 0) {
+            obtenerIngresos().pop();
+        }
     });
 
     it('debe agregar un ingreso correctamente', () => {
@@ -11,6 +14,7 @@ describe('ingresos.js', () => {
 
         agregarIngreso(monto, fecha);
 
+        const ingresos = obtenerIngresos();
         expect(ingresos.length).toBe(1);
         expect(ingresos).toEqual([{ monto: 100, fecha: '2024-10-01' }]);
     });
@@ -21,6 +25,7 @@ describe('ingresos.js', () => {
 
         agregarIngreso(monto, fecha);
         
+        const ingresos = obtenerIngresos();
         expect(ingresos.length).toBe(0);
     });
 });

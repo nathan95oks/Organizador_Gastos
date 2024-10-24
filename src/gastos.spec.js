@@ -1,23 +1,27 @@
-const { agregarGasto, gastos } = require('./gastos');
+const { agregarIngreso, obtenerIngresos } = require('./ingresos.js');
 
-describe('gastos.js', () => {
+describe('ingresos.js', () => {
     beforeEach(() => {
-        gastos.length = 0; // Limpia la lista antes de cada prueba
+        const ingresos = obtenerIngresos();
+        ingresos.length = 0;  // Resetea la lista de ingresos
     });
 
-    it('debe agregar un gasto correctamente', () => {
-        const monto = 50;
-        const fecha = '2024-10-02';
+    it('debe agregar un ingreso correctamente', () => {
+        const monto = 100;
+        const fecha = '2024-10-01';
 
-        agregarGasto(monto, fecha);
+        agregarIngreso(monto, fecha);
 
-        expect(gastos.length).toBe(1);
-        expect(gastos).toEqual([{ monto: 50, fecha: '2024-10-02' }]);
+        const ingresos = obtenerIngresos();
+        expect(ingresos.length).toBe(1);
+        expect(ingresos).toEqual([{ monto: 100, fecha: '2024-10-01' }]);
     });
 
     it('debe manejar entradas no válidas', () => {
-        agregarGasto('invalid', '2024-10-02');
+        agregarIngreso('invalid', '2024-10-01');
 
-        expect(gastos.length).toBe(0);
+        const ingresos = obtenerIngresos();
+        expect(ingresos.length).toBe(0);
     });
 });
+

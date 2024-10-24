@@ -1,13 +1,24 @@
-let gastos = [];
+let gastos = [];  
 
-const agregarGasto = (monto, fecha) => {
-    if (typeof monto === 'number' && !isNaN(monto) && fecha) {
-        gastos.push({ monto, fecha });
-    }
-};
 
-const getGastos = () => {
-    return gastos;
-};
+const agregarGasto = (monto, fecha) => {  
+    if (!isNaN(monto) && fecha) {  
+        gastos.push({ monto: parseFloat(monto), fecha });  
+    }  
+};  
 
-module.exports = { agregarGasto, getGastos, gastos };
+
+const SumarGastos = () => {  
+    let totalSumarGastos = 0;  
+    for (let i = 0; i < gastos.length; i++) {  
+        totalSumarGastos += gastos[i].monto;  
+    }  
+    return totalSumarGastos;  
+};  
+
+
+const obtenerGastos = () => {  
+    return gastos;  
+};  
+
+export { agregarGasto, SumarGastos, obtenerGastos };
