@@ -32,7 +32,7 @@ describe('Mostrar Ahorro - Cypress Tests', () => {
     });
 
 
-    
+    //si deberia mostrar el ahorro
     it('deberia mostrar el ahorro correcto de ingresos ', () => {
        const ingresos= '3000';
        const fechaIngreso = '2024-10-05'
