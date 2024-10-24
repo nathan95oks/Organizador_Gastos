@@ -14,7 +14,7 @@ describe('ingresos.js', () => {
         expect(ingresos.length).toBe(1);
         expect(ingresos).toEqual([{ monto: 100, fecha: '2024-10-01' }]);
     });
-
+//si funca
     it('debe manejar entradas no válidas', () => {
         const monto = 'invalid'; 
         const fecha = '2024-10-01';
