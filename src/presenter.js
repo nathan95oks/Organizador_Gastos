@@ -117,12 +117,33 @@ const guardarGastos = () => {
 };
 
 // Cargar gastos desde localStorage
-const cargarGastos = () => {
-    const datosGuardados = localStorage.getItem('gastos');
-    if (datosGuardados) {
-        gastos = JSON.parse(datosGuardados);
-        mostrarGastos();
+function cargarGastos() {
+    const gastos = JSON.parse(localStorage.getItem('gastos')) || [];
+    const resultadoGastosDiv = document.getElementById('resultado-gastos');
+    const totalGastosDiv = document.getElementById('total-gastos');
+
+    if (gastos.length === 0) {
+        // Si no hay gastos, muestra el mensaje "No hay gastos registrados"
+        resultadoGastosDiv.textContent = 'No hay gastos registrados';
+        totalGastosDiv.textContent = 'Total de Gastos: $0';
+    } else {
+        // Si hay gastos, muestra la lista de gastos y el total
+        resultadoGastosDiv.textContent = '';
+        gastos.forEach(gasto => {
+            const gastoItem = document.createElement('div');
+            gastoItem.textContent = `Monto: $${gasto.monto} - Fecha: ${gasto.fecha}`;
+            resultadoGastosDiv.appendChild(gastoItem);
+        });
+
+        // Calcula el total de los gastos
+        const total = gastos.reduce((acc, gasto) => acc + gasto.monto, 0);
+        totalGastosDiv.textContent = `Total de Gastos: $${total}`;
     }
+}
+
+// Llama a la función al cargar la página
+window.onload = function() {
+    cargarGastos();
 };
 
 // Manejar el formulario de gastos
