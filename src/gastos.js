@@ -6,6 +6,8 @@ const agregarGasto = (monto, fecha) => {
     }
 };
 
+
+
 const getGastos = () => {
     return gastos;
 };

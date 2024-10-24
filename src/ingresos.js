@@ -6,6 +6,7 @@ const agregarIngreso = (monto, fecha) => {
     } ;
 };
 
+
 const getIngresos = () => {
     return ingresos;
 };
