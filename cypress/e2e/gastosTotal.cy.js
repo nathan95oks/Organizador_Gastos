@@ -3,6 +3,7 @@ describe('Gestión de Gastos y Total de Gastos', () => {
     beforeEach(() => {
       cy.visit('index.html');
     }); 
+    //si debe
     it('Debe agregar un gasto y mostrarlo en la lista de gastos', () => {  
       cy.get('#gasto').type('100');
       cy.get('#fechaGasto').type('2024-10-23');  
