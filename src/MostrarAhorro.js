@@ -4,9 +4,7 @@ import { SumarGastos } from "./gastos.js";
 
 const CalcularAhorroTotal = () => {
     const totalSumarIngresos = SumarIngresos();
-    const totalSumarGastos = SumarGastos();
-
-    const Resultado= totalSumarIngresos - totalSumarGastos;
+    const Resultado= totalSumarIngresos;
     return Resultado;
 };
 
