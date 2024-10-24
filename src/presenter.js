@@ -1,6 +1,7 @@
 let ingresos = [];
 let gastos = [];
 
+// Función para agregar ingresos
 const agregarIngreso = (monto, fecha) => {
     if (typeof monto === 'number' && !isNaN(monto) && fecha) {
         ingresos.push({ monto, fecha });
@@ -9,28 +10,30 @@ const agregarIngreso = (monto, fecha) => {
     }
 };
 
+// Obtener ingresos
 const getIngresos = () => {
     return ingresos;
 };
 
+// Mostrar los ingresos
 const mostrarIngresos = () => {
-    const resultadoDiv = document.getElementById('resultado-ingresos'); // Obtiene el div donde se mostrarán los resultados
-    resultadoDiv.innerHTML = ''; // Limpia el contenido previo
+    const resultadoDiv = document.getElementById('resultado-ingresos');
+    resultadoDiv.innerHTML = '';
 
-    if (ingresos.length === 0) { // Verifica si no hay ingresos registrados
-        resultadoDiv.innerHTML = '<p>No hay ingresos registrados</p>'; // Mensaje si no hay ingresos
+    if (ingresos.length === 0) {
+        resultadoDiv.innerHTML = '<p>No hay ingresos registrados</p>';
     } else {
-        const lista = document.createElement('ul'); // Crea una lista para mostrar los ingresos
-        ingresos.forEach(ingreso => { // Recorre cada ingreso registrado
-            const listItem = document.createElement('li'); // Crea un elemento de lista para cada ingreso
-            listItem.textContent = `Monto: $${ingreso.monto} - Fecha: ${ingreso.fecha}`; // Asigna el texto correctamente
-            lista.appendChild(listItem); // Agrega el elemento de lista a la lista
+        const lista = document.createElement('ul');
+        ingresos.forEach(ingreso => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `Monto: $${ingreso.monto} - Fecha: ${ingreso.fecha}`;
+            lista.appendChild(listItem);
         });
-        resultadoDiv.appendChild(lista); // Agrega la lista al div de resultados
+        resultadoDiv.appendChild(lista);
     }
 };
 
-
+// Cargar ingresos desde localStorage
 const cargarIngresos = () => {
     const datosGuardados = localStorage.getItem('ingresos');
     if (datosGuardados) {
@@ -39,25 +42,27 @@ const cargarIngresos = () => {
     }
 };
 
+// Guardar ingresos en localStorage
 const guardarIngresos = () => {
     localStorage.setItem('ingresos', JSON.stringify(ingresos));
 };
 
+// Manejar el formulario de ingresos
 const ingresoForm = document.getElementById('ingreso-form');
 
 ingresoForm.addEventListener('submit', (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
 
-    const inputMontos = document.getElementById('ingreso').value; 
-    const fecha = document.getElementById('fechaIngreso').value;  
+    const inputMontos = document.getElementById('ingreso').value;
+    const fecha = document.getElementById('fechaIngreso').value;
 
-    const montos = inputMontos.split(',').map(m => parseFloat(m.trim())); 
+    const montos = inputMontos.split(',').map(m => parseFloat(m.trim()));
 
     montos.forEach(monto => {
         if (!isNaN(monto)) {
             agregarIngreso(monto, fecha);
         } else {
-            console.error('Entrada no válida:', monto); 
+            console.error('Entrada no válida:', monto);
         }
     });
 
@@ -65,15 +70,7 @@ ingresoForm.addEventListener('submit', (event) => {
     document.getElementById('fechaIngreso').value = '';
 });
 
-if (typeof window !== 'undefined') {
-    window.ingresos = ingresos;
-    window.agregarIngreso = agregarIngreso;
-    window.getIngresos = getIngresos;
-    window.mostrarIngresos = mostrarIngresos;
-    window.guardarIngresos = guardarIngresos;
-}
-
-
+// Función para agregar gastos
 const agregarGasto = (monto, fecha) => {
     if (typeof monto === 'number' && !isNaN(monto) && fecha) {
         gastos.push({ monto, fecha });
@@ -82,6 +79,7 @@ const agregarGasto = (monto, fecha) => {
     }
 };
 
+// Mostrar los gastos y el total de gastos
 const mostrarGastos = () => {
     const resultadoDiv = document.getElementById('resultado-gastos');
     resultadoDiv.innerHTML = '';
@@ -97,12 +95,28 @@ const mostrarGastos = () => {
         });
         resultadoDiv.appendChild(lista);
     }
+
+    mostrarGastoTotal();  // Actualizar el total de gastos cuando se muestran los gastos
 };
 
+// Obtener el total de gastos
+const getGastoTotal = () => {
+    return gastos.reduce((total, gasto) => total + gasto.monto, 0);
+};
+
+// Mostrar el total de los gastos
+const mostrarGastoTotal = () => {
+    const totalGastos = getGastoTotal();
+    const totalDiv = document.getElementById('total-gastos');
+    totalDiv.textContent = `Total de Gastos: $${totalGastos}`;
+};
+
+// Guardar gastos en localStorage
 const guardarGastos = () => {
     localStorage.setItem('gastos', JSON.stringify(gastos));
 };
 
+// Cargar gastos desde localStorage
 const cargarGastos = () => {
     const datosGuardados = localStorage.getItem('gastos');
     if (datosGuardados) {
@@ -111,6 +125,7 @@ const cargarGastos = () => {
     }
 };
 
+// Manejar el formulario de gastos
 const gastoForm = document.getElementById('gasto-form');
 
 gastoForm.addEventListener('submit', (event) => {
@@ -133,12 +148,19 @@ gastoForm.addEventListener('submit', (event) => {
     document.getElementById('fechaGasto').value = '';
 });
 
+// Hacer accesibles las funciones en el ámbito global para pruebas
 if (typeof window !== 'undefined') {
+    window.ingresos = ingresos;
+    window.agregarIngreso = agregarIngreso;
+    window.getIngresos = getIngresos;
+    window.mostrarIngresos = mostrarIngresos;
+    window.guardarIngresos = guardarIngresos;
     window.gastos = gastos;
     window.agregarGasto = agregarGasto;
     window.mostrarGastos = mostrarGastos;
     window.guardarGastos = guardarGastos;
 }
 
+// Cargar ingresos y gastos al cargar la página
 cargarIngresos();
 cargarGastos();

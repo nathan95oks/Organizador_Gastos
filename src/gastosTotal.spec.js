@@ -3,21 +3,21 @@ const { getGastoTotal } = require('./gastosTotal');
 
 describe('gastosTotal.js', () => {
     beforeEach(() => {
-        gastos.length = 0;  // Vacía el array de gastos antes de cada prueba
+        gastos.length = 0;  
     });
 
     it('debe calcular correctamente el total de los gastos', () => {
         agregarGasto(50, '2024-10-01');
         agregarGasto(100, '2024-10-02');
 
-        const total = getGastoTotal();  // Calcula el total de los gastos
+        const total = getGastoTotal();  
 
-        expect(total).toBe(150);  // Verifica que el total sea correcto
+        expect(total).toBe(150);  
     });
 
-    it('debe devolver 0 si no hay gastos', () => {  // Corregido: el punto `.` removido
+    it('debe devolver 0 si no hay gastos', () => { 
         const total = getGastoTotal();
 
-        expect(total).toBe(0);  // Verifica que el total sea 0 si no hay gastos
+        expect(total).toBe(0);  
     });
 });
