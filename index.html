@@ -1,37 +1,62 @@
 <!DOCTYPE html>
-<html xml:lang="es">
-  <head>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Ahorros</title>
-  </head>
-  <body>
-    <h1>Gastos</h1>
-<form id="gasto-form">
-    <label for="gasto">Monto del Gasto:</label>
-    <input type="text" id="gasto" />
-    <label for="fechaGasto">Fecha del gasto:</label>
-    <input type="date" id="fechaGasto" />
-    <input type="submit" value="Confirmar Gasto" id="confirmar-gasto-boton" />
-</form>
+</head>
+<body>
+    <h1>Sistema de Ahorros</h1>
 
-    <h1>Ingresos</h1>
-    <form id="ingreso-form">
-      <label for="ingreso">Monto del Ingreso:</label>
-      <input type="text" id="ingreso" />
-      <label for="fechaIngreso">Fecha del ingreso:</label>
-      <input type="date" id="fechaIngreso" />
-      <input type="submit" value="Confirmar Ingreso" id="confirmar-ingreso-boton" />
-    </form>
+    <!-- Gastos -->
+    <section>
+        <h2>Registrar Gasto</h2>
+        <form id="gasto-form">
+            <label for="gasto">Monto del Gasto:</label>
+            <input type="text" id="gasto" placeholder="Ingrese monto del gasto" required />
 
-    <h2>Resultados</h2>
-    <h2>Historial Ingresos</h2>
-    <div id="resultado-ingresos"></div>
-    <h2>Historial Gastos</h2> 
-    <div id="resultado-gastos"></div>
-    <h2>Total de Ahorro</h2>  
-    <div id="resultado-ahorro">Ahorro Total: $0</div> <!-- Se agrega un div para mostrar el ahorro total -->  
+            <label for="fechaGasto">Fecha del Gasto:</label>
+            <input type="date" id="fechaGasto" required />
 
-    <h2>Total de Gastos</h2>
-    <p id="total-gastos"></p>
+            <input type="submit" value="Añadir Gasto" id="confirmar-gasto-boton" />
+        </form>
+    </section>
+
+    <!-- Ingresos -->
+    <section>
+        <h2>Registrar Ingreso</h2>
+        <form id="ingreso-form">
+            <label for="ingreso">Monto del Ingreso:</label>
+            <input type="text" id="ingreso" placeholder="Ingrese monto del ingreso" required />
+
+            <label for="fechaIngreso">Fecha del Ingreso:</label>
+            <input type="date" id="fechaIngreso" required />
+
+            <input type="submit" value="Añadir Ingreso" id="confirmar-ingreso-boton" />
+        </form>
+    </section>
+
+    <!-- Resultados -->
+    <section>
+        <h2>Resultados</h2>
+
+        <h3>Historial de Ingresos</h3>
+        <div id="resultado-ingresos">
+        </div>
+
+        <h3>Historial de Gastos</h3>
+        <div id="resultado-gastos"> 
+        </div>
+
+        <h3>Ahorro Total</h3>
+        <div id="resultado-ahorro">
+            Ahorro Total: $0
+        </div>
+
+        <h3>Total de Gastos</h3>
+        <p id="total-gastos">$0</p>
+    </section>
+
     <script src="./src/presenter.js"></script>
-  </body>
+</body>
 </html>
