@@ -7,22 +7,18 @@ let espacio = [];
 function IngresoMetaAhorro(meta) {
     return meta;
 }
-
-// Función para agregar y mostrar la meta de ahorro
 const agregarMetaAhorro = (metaAhorro) => {
-    if (!isNaN(metaAhorro) && metaAhorro > 0) {
-        const metaFinal = IngresoMetaAhorro(metaAhorro);
-        espacio.push(metaFinal);
-
-        // Mostrar la meta en el div correspondiente
-        const metaDisplay = document.getElementById('meta-div');
-        metaDisplay.textContent = `Meta de Ahorro: $${metaFinal.toFixed(2)}`;
-    } else {
+    const metaDisplay = document.getElementById('meta-div');
+    const esMetaValida = !isNaN(metaAhorro) && metaAhorro > 0;
+    if (!esMetaValida) {
         alert("Por favor, ingrese una meta de ahorro válida.");
+        return;
     }
+    const metaFinal = IngresoMetaAhorro(metaAhorro);
+    espacio.push(metaFinal);
+    metaDisplay.textContent = `Meta de Ahorro: $${metaFinal.toFixed(2)}`;
 };
 
-// Manejo del formulario de meta de ahorro
 const metaForm = document.getElementById('Meta-form');
 const metaInput = document.getElementById('meta');
 
