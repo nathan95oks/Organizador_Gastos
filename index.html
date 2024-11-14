@@ -4,9 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Ahorros</title>
+    <style>
+        /* Estilo para mostrar la meta de ahorro en la esquina superior derecha */
+        #meta-div {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 3em;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
     <h1>Sistema de Ahorros</h1>
+    <div id="meta-div">Meta de Ahorro: $0</div>
+        <!-- Meta de Ahorro -->
+        <!-- <section>
+            <h2>Establecer Meta de Ahorro</h2>
+            <form id="meta-ahorro-form">
+                <label for="meta-ahorro">Meta de Ahorro:</label>
+                <input type="text" id="meta-ahorro" placeholder="Ingrese su meta de ahorro" required />
+                <input type="submit" value="Establecer Meta" />
+            </form>
+        </section>
+    
+         Display de la Meta de Ahorro 
+        <div id="meta-ahorro-display">Meta de Ahorro: $0</div> -->
+        <section>
+            <h2>establece tu meta de ahorro</h2>
+            <form id="Meta-form">
+                <label for="meta">ingrese monto ahorrado:</label>
+                <input type="text" id="meta" placeholder="Ingrese la meta de ahorro" required />
+                <input type="submit" value="Agrega" id="Meta-boton" />
+            </form>
+            <!-- <div id="meta-div"></div> -->
+        </section>
 
     <!-- Gastos -->
     <section>
