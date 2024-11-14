@@ -1,9 +1,6 @@
 let ingresos = [];
 let gastos = [];
 let espacio = [];
-
-
-// Función para establecer la meta de ahorro
 function IngresoMetaAhorro(meta) {
     return meta;
 }
@@ -23,12 +20,12 @@ const metaForm = document.getElementById('Meta-form');
 const metaInput = document.getElementById('meta');
 
 metaForm.addEventListener('submit', function(event) {
-    event.preventDefault();  // Previene la recarga de la página
+    event.preventDefault();
 
     const metaAhorro = parseFloat(metaInput.value);
     agregarMetaAhorro(metaAhorro);
 
-    metaInput.value = ''; // Limpia el campo de entrada
+    metaInput.value = ''; 
 });
 
 
