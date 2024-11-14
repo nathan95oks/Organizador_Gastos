@@ -2,15 +2,12 @@ let espacio=[];
 
 function IngresoMetaAhorro(meta)
 { 
-    
-    if (meta>0)
-    {
+    if (meta>0){
         espacio.push(meta);
         return meta ;
     }
-    else {
+    else{
         return false;
     }
-
 }
 export default IngresoMetaAhorro ;
