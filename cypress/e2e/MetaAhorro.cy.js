@@ -2,14 +2,16 @@
 describe ("Agregar meta de ahorro",()=>{
     it ("Verificar si agrega los datos correctamente",()=>{
         cy.visit('index.html');
-        // const valor=300;
-        cy.get("#meta").type('300');
+        const metaAhorro= '3000';
+       
+        cy.get("#meta").type(metaAhorro);
         cy.get("#Meta-form").submit();
-        cy.get("#meta-div").should('contain', '300');
+        cy.get("#meta-div").should('contain', metaAhorro);
     });
     it("Verificar que no permita valores vacíos o nulos", () => {
         
         cy.visit('index.html');
+        
         cy.get("#Meta-form").submit();
         cy.get("#meta-div").should('not.contain', '%');
         cy.on('window:alert', (str) => {

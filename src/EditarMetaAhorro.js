@@ -3,16 +3,15 @@ import IngresoMetaAhorro from "./MetaAhorro";
 let espacio = [];
 
 function editar(nuevaMeta) {
-    if (nuevaMeta > 0) {
-        if (espacio.length > 0) {
-            espacio[0] = nuevaMeta; 
-        } else {
-            IngresoMetaAhorro(nuevaMeta);
-        }
-        return nuevaMeta; 
+    if (nuevaMeta <= 0) return false;
+
+    if (espacio.length > 0) {
+        espacio[0] = nuevaMeta;
     } else {
-        return false; 
+        espacio.push(IngresoMetaAhorro(nuevaMeta));
     }
+
+    return nuevaMeta;
 }
 
-export default editar ;
+export default editar;
