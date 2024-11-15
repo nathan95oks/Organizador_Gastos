@@ -8,7 +8,7 @@ describe("Editar la meta de Ahorro ",()=>{
     expect(editar(-100)).toEqual(false);
    });
    it("Debería devolver false si el valor es inválido (no es un número)", () => {
-    let resultado = editar("abc");
-    expect(resultado).toEqual(false);
+    
+    expect(editar("abc")).toEqual(false);
     });
 });
