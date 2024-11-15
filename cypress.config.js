@@ -5,6 +5,6 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: "http://localhost:1234",
+    baseUrl: process.env.CYPRESS_BASE_URL || null, // Usa null si CYPRESS_BASE_URL no está definida
   },
 });

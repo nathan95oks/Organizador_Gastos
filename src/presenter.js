@@ -1,9 +1,14 @@
 let ingresos = [];
 let gastos = [];
+// Meta de Ahorro
 let espacio = [];
+
+// Función para ingresar meta de ahorro
 function IngresoMetaAhorro(meta) {
     return meta;
 }
+
+// Función para agregar meta de ahorro
 const agregarMetaAhorro = (metaAhorro) => {
     const metaDisplay = document.getElementById('meta-div');
     const esMetaValida = !isNaN(metaAhorro) && metaAhorro > 0;
@@ -12,10 +17,25 @@ const agregarMetaAhorro = (metaAhorro) => {
         return;
     }
     const metaFinal = IngresoMetaAhorro(metaAhorro);
-    espacio.push(metaFinal);
+    espacio = [metaFinal]; // Actualizamos espacio con la nueva meta
     metaDisplay.textContent = `Meta de Ahorro: $${metaFinal.toFixed(2)}`;
 };
 
+// Función para editar la meta de ahorro
+const editarMetaAhorro = (nuevaMeta) => {
+    const metaDisplay = document.getElementById('meta-div');
+    const esMetaValida = !isNaN(nuevaMeta) && nuevaMeta > 0;
+    if (!esMetaValida) {
+        alert("Por favor, ingrese una meta de ahorro válida para editar.");
+        return;
+    }
+    const metaFinal = IngresoMetaAhorro(nuevaMeta);
+    espacio[0] = metaFinal; // Editar la meta en el espacio
+    metaDisplay.textContent = `Meta de Ahorro (Editada): $${metaFinal.toFixed(2)}`;
+    alert("Meta de ahorro editada correctamente.");
+};
+
+// Manejo del formulario para agregar meta de ahorro
 const metaForm = document.getElementById('Meta-form');
 const metaInput = document.getElementById('meta');
 
@@ -25,8 +45,22 @@ metaForm.addEventListener('submit', function(event) {
     const metaAhorro = parseFloat(metaInput.value);
     agregarMetaAhorro(metaAhorro);
 
-    metaInput.value = ''; 
+    metaInput.value = '';
 });
+
+// Manejo del formulario para editar meta de ahorro
+const editarMetaForm = document.getElementById('EditarMeta-form');
+const editarMetaInput = document.getElementById('editar-meta');
+
+editarMetaForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const nuevaMeta = parseFloat(editarMetaInput.value);
+    editarMetaAhorro(nuevaMeta);
+
+    editarMetaInput.value = '';
+});
+
 
 
 
