@@ -3,23 +3,35 @@ let gastos = [];
 // Meta de Ahorro
 let espacio = [];
 
-// Función para ingresar meta de ahorro
-function IngresoMetaAhorro(meta) {
-    return meta;
-}
+const IngresoMetaAhorro = (metaAhorro, fechaLimite) => {
+    // Verificamos que la meta sea un número positivo y la fecha no sea vacía
+    if (isNaN(metaAhorro) || metaAhorro <= 0 || !fechaLimite) {
+        return false;  // Si hay algún error, devolvemos false
+    }
+
+    // Devolvemos un objeto con las propiedades 'meta' y 'fechaLimite'
+    return { meta: metaAhorro, fechaLimite: fechaLimite };
+};
+
+
 
 // Función para agregar meta de ahorro
-const agregarMetaAhorro = (metaAhorro) => {
+// Función para agregar meta de ahorro
+const agregarMetaAhorro = (metaAhorro, fechaLimite) => {
     const metaDisplay = document.getElementById('meta-div');
-    const esMetaValida = !isNaN(metaAhorro) && metaAhorro > 0;
+    const esMetaValida = !isNaN(metaAhorro) && metaAhorro > 0 && fechaLimite;
+
     if (!esMetaValida) {
-        alert("Por favor, ingrese una meta de ahorro válida.");
+        alert("Por favor, ingrese una meta de ahorro válida y una fecha límite.");
         return;
     }
-    const metaFinal = IngresoMetaAhorro(metaAhorro);
-    espacio = [metaFinal]; // Actualizamos espacio con la nueva meta
-    metaDisplay.textContent = `Meta de Ahorro: $${metaFinal.toFixed(2)}`;
+
+    const metaFinal = IngresoMetaAhorro(metaAhorro, fechaLimite);
+    espacio[0] = metaFinal;  // Asegúrate de que el valor de 'espacio' se actualice
+
+    metaDisplay.textContent = `Meta de Ahorro: $${metaFinal.meta.toFixed(2)} - Fecha límite: ${metaFinal.fechaLimite}`;
 };
+
 
 // Función para editar la meta de ahorro
 const editarMetaAhorro = (nuevaMeta) => {
@@ -35,18 +47,43 @@ const editarMetaAhorro = (nuevaMeta) => {
     alert("Meta de ahorro editada correctamente.");
 };
 
+// Guardar meta de ahorro en localStorage
+const guardarMeta = (meta) => {
+    localStorage.setItem('meta', JSON.stringify(meta));  // Guarda el objeto con la meta y la fecha límite
+};
+;
+
+// Cargar la meta de ahorro desde localStorage
+const cargarMeta = () => {
+    const datosGuardados = localStorage.getItem('meta');
+    if (datosGuardados) {
+        const meta = JSON.parse(datosGuardados);
+        espacio.push(meta);  // Añadimos la meta de ahorro al espacio correctamente
+        const metaDisplay = document.getElementById('meta-div');
+        metaDisplay.textContent = `Meta de Ahorro: $${meta.meta.toFixed(2)} - Fecha límite: ${meta.fechaLimite}`;
+    }
+};
+
+
+
 // Manejo del formulario para agregar meta de ahorro
 const metaForm = document.getElementById('Meta-form');
 const metaInput = document.getElementById('meta');
+const fechaLimiteInput = document.getElementById('fechaLimite');
 
 metaForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
     const metaAhorro = parseFloat(metaInput.value);
-    agregarMetaAhorro(metaAhorro);
+    const fechaLimite = fechaLimiteInput.value;
+
+    agregarMetaAhorro(metaAhorro, fechaLimite);  // Llamamos a la función para agregar la meta de ahorro con fecha límite
+    guardarMeta({ meta: metaAhorro, fechaLimite });  // Guardamos la meta y la fecha límite en el almacenamiento
 
     metaInput.value = '';
+    fechaLimiteInput.value = '';
 });
+
 
 // Manejo del formulario para editar meta de ahorro
 const editarMetaForm = document.getElementById('EditarMeta-form');
@@ -213,6 +250,7 @@ const mostrarAhorroTotal = () => {
 
 // Cargar ingresos y gastos al cargar la página
 window.onload = function() {
+    cargarMeta();  // Cargar la meta de ahorro y la fecha límite
     cargarGastos();
     cargarIngresos();
     const ahorroTotal = calcularAhorro();
@@ -246,20 +284,28 @@ gastoForm.addEventListener('submit', (event) => {
 
 
 // Función para verificar el cumplimiento de la meta
+// Función para verificar el cumplimiento de la meta de ahorro
 const verificarCumplimientoMetaAutomatica = (ahorroTotal) => {
     const notificacionesDiv = document.getElementById('notificaciones');
-    let metaAhorro = espacio.length > 0 ? espacio[0] : 0;
+    let metaAhorro = espacio.length > 0 ? espacio[0] : { meta: 0, fechaLimite: '' };
 
-    if (metaAhorro > 0) {
-        if (ahorroTotal >= metaAhorro) {
+    if (metaAhorro.meta > 0) {
+        const fechaLimite = new Date(metaAhorro.fechaLimite);
+        const hoy = new Date();
+        
+        if (ahorroTotal >= metaAhorro.meta && hoy <= fechaLimite) {
             notificacionesDiv.textContent = "¡Felicidades! Has alcanzado tu meta de ahorro.";
             notificacionesDiv.style.color = "green";
+        } else if (hoy > fechaLimite) {
+            notificacionesDiv.textContent = `La fecha límite para alcanzar la meta ha pasado. Te faltan $${(metaAhorro.meta - ahorroTotal).toFixed(2)} para alcanzarla.`;
+            notificacionesDiv.style.color = "red";
         } else {
-            notificacionesDiv.textContent = `Te faltan $${(metaAhorro - ahorroTotal).toFixed(2)} para alcanzar tu meta.`;
+            notificacionesDiv.textContent = `Te faltan $${(metaAhorro.meta - ahorroTotal).toFixed(2)} para alcanzar tu meta.`;
             notificacionesDiv.style.color = "orange";
         }
     }
 };
+
 
 
 
