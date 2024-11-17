@@ -206,14 +206,19 @@ const calcularAhorro = () => {
 const mostrarAhorroTotal = () => {
     const ahorroTotal = calcularAhorro();
     const ahorroDiv = document.getElementById('resultado-ahorro');
-    ahorroDiv.textContent = `Ahorro Total: $${ahorroTotal}`;
+    ahorroDiv.textContent = `Ahorro Total: $${ahorroTotal.toFixed(2)}`;
+    
+    verificarCumplimientoMetaAutomatica(ahorroTotal); // Verificar meta automáticamente
 };
 
 // Cargar ingresos y gastos al cargar la página
 window.onload = function() {
     cargarGastos();
     cargarIngresos();
+    const ahorroTotal = calcularAhorro();
     mostrarAhorroTotal(); // Mostrar el ahorro total al cargar la página
+    verificarCumplimientoMetaAutomatica(ahorroTotal); // Verificar meta automáticamente al cargar
+
 };
 
 // Manejar el formulario de gastos
@@ -238,6 +243,23 @@ gastoForm.addEventListener('submit', (event) => {
     document.getElementById('gasto').value = '';
     document.getElementById('fechaGasto').value = '';
 });
+
+
+// Función para verificar el cumplimiento de la meta
+const verificarCumplimientoMetaAutomatica = (ahorroTotal) => {
+    const notificacionesDiv = document.getElementById('notificaciones');
+    let metaAhorro = espacio.length > 0 ? espacio[0] : 0;
+
+    if (metaAhorro > 0) {
+        if (ahorroTotal >= metaAhorro) {
+            notificacionesDiv.textContent = "¡Felicidades! Has alcanzado tu meta de ahorro.";
+            notificacionesDiv.style.color = "green";
+        } else {
+            notificacionesDiv.textContent = `Te faltan $${(metaAhorro - ahorroTotal).toFixed(2)} para alcanzar tu meta.`;
+            notificacionesDiv.style.color = "orange";
+        }
+    }
+};
 
 
 
