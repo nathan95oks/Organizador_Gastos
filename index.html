@@ -23,7 +23,7 @@
 <body>
     <h1>Sistema de Ahorros</h1>
   
-    <div id="meta-div">Meta de Ahorro: $0</div>
+    <div id="meta-div">Meta de Ahorro: $0 - Fecha límite: --</div>
 
     <div id="notificaciones" style="color: green; font-size: 1.2em;"></div>
 
@@ -42,14 +42,18 @@
     </section>
 
 
-    <section>
-        <h2>Editar Meta de Ahorro</h2>
-        <form id="EditarMeta-form">
-            <label for="editar-meta">Nueva meta de ahorro:</label>
-            <input type="text" id="editar-meta" placeholder="Ingrese la nueva meta de ahorro" required />
-            <input type="submit" value="Editar Meta" />
-        </form>
-    </section>
+<section>
+    <h2>Editar Meta de Ahorro</h2>
+    <form id="EditarMeta-form">
+        <label for="editar-meta">Nueva meta de ahorro:</label>
+        <input type="text" id="editar-meta" placeholder="Ingrese la nueva meta de ahorro" required />
+
+        <label for="editar-fechaLimite">Nueva Fecha Límite:</label>
+        <input type="date" id="editar-fechaLimite" required />
+
+        <input type="submit" value="Editar Meta" />
+    </form>
+</section>
 
 
    

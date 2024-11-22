@@ -16,7 +16,6 @@ const IngresoMetaAhorro = (metaAhorro, fechaLimite) => {
 
 
 // Función para agregar meta de ahorro
-// Función para agregar meta de ahorro
 const agregarMetaAhorro = (metaAhorro, fechaLimite) => {
     const metaDisplay = document.getElementById('meta-div');
     const esMetaValida = !isNaN(metaAhorro) && metaAhorro > 0 && fechaLimite;
@@ -34,18 +33,40 @@ const agregarMetaAhorro = (metaAhorro, fechaLimite) => {
 
 
 // Función para editar la meta de ahorro
+// Función para editar la meta de ahorro
 const editarMetaAhorro = (nuevaMeta) => {
     const metaDisplay = document.getElementById('meta-div');
     const esMetaValida = !isNaN(nuevaMeta) && nuevaMeta > 0;
+
     if (!esMetaValida) {
         alert("Por favor, ingrese una meta de ahorro válida para editar.");
         return;
     }
-    const metaFinal = IngresoMetaAhorro(nuevaMeta);
-    espacio[0] = metaFinal; // Editar la meta en el espacio
-    metaDisplay.textContent = `Meta de Ahorro (Editada): $${metaFinal.toFixed(2)}`;
+
+    // Actualizar la meta y la fecha en el objeto 'espacio'
+    const fechaActual = new Date().toISOString();
+    if (espacio.length > 0) {
+        espacio[0].meta = nuevaMeta;
+        espacio[0].fechaLimite = fechaActual; // Actualizar la fecha límite a la fecha actual
+    } else {
+        espacio.push({ meta: nuevaMeta, fechaLimite: fechaActual }); // Si no existe, crearlo
+    }
+
+    // Guardar en localStorage
+    guardarMeta(espacio[0]);
+
+    // Actualizar la interfaz con la nueva meta y fecha
+    metaDisplay.textContent = `Meta de Ahorro (Editada): $${nuevaMeta.toFixed(2)} - Fecha límite: ${new Date(fechaActual).toLocaleDateString()}`;
+
     alert("Meta de ahorro editada correctamente.");
 };
+
+
+
+
+
+
+
 
 // Guardar meta de ahorro en localStorage
 const guardarMeta = (meta) => {
@@ -93,10 +114,14 @@ editarMetaForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
     const nuevaMeta = parseFloat(editarMetaInput.value);
-    editarMetaAhorro(nuevaMeta);
+    if (!isNaN(nuevaMeta)) {
+        editarMetaAhorro(nuevaMeta); // Llama a la función correctamente
+    }
 
     editarMetaInput.value = '';
 });
+
+
 
 
 
@@ -258,6 +283,7 @@ window.onload = function() {
     verificarCumplimientoMetaAutomatica(ahorroTotal); // Verificar meta automáticamente al cargar
 
 };
+
 
 // Manejar el formulario de gastos
 const gastoForm = document.getElementById('gasto-form');

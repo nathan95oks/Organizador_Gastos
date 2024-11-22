@@ -1,17 +1,31 @@
-import IngresoMetaAhorro from "./MetaAhorro";
+// EditarMetaAhorro.js
+let espacio = []; // Espacio compartido para almacenar la meta
 
-let espacio = [];
-
-function editar(nuevaMeta) {
-    if (isNaN(nuevaMeta) || nuevaMeta <= 0) return false;
-
-    if (espacio.length > 0) {
-        espacio[0] = nuevaMeta;
-    } else {
-        espacio.push(IngresoMetaAhorro(nuevaMeta));
+export const editarMetaAhorro = (nuevaMeta) => {
+    // Validación de nuevaMeta
+    if (isNaN(nuevaMeta) || nuevaMeta <= 0) {
+        return false;
     }
 
-    return nuevaMeta;
-}
+    // Si espacio está vacío, no se puede editar
+    if (espacio.length === 0) {
+        return false;
+    }
 
-export default editar;
+    // Actualizar la meta y la fecha
+    const fechaActual = new Date().toISOString();
+    espacio[0].meta = nuevaMeta;
+    espacio[0].fecha = fechaActual;
+
+
+
+    // Retornar el objeto actualizado
+    return { meta: nuevaMeta, fecha: fechaActual };
+};
+
+// Exporta el espacio si necesitas inicializarlo o manipularlo externamente
+export const setEspacio = (nuevoEspacio) => {
+    espacio = nuevoEspacio;
+};
+
+export const getEspacio = () => espacio;
