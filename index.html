@@ -39,7 +39,7 @@
 
             <input type="submit" value="Agregar" id="Meta-boton" />
         </form>
-    </section>
+    </section>
 
 
 <section>
@@ -87,26 +87,38 @@
         </form>
     </section>
 
-    <!-- Resultados -->
-    <section>
-        <h2>Resultados</h2>
+<!-- Resultados -->
+<section>
+    <h2>Resultados</h2>
 
-        <h3>Historial de Ingresos</h3>
-        <div id="resultado-ingresos">
-        </div>
+    <table border="1" style="width: 100%; text-align: left;">
+        <thead>
+            <tr>
+                <th>Concepto</th>
+                <th>Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Historial de Ingresos</td>
+                <td id="resultado-ingresos"></td>
+            </tr>
+            <tr>
+                <td>Historial de Gastos</td>
+                <td id="resultado-gastos"></td>
+            </tr>
+            <tr>
+                <td>Ahorro Total</td>
+                <td id="resultado-ahorro">Ahorro Total: $0</td>
+            </tr>
+            <tr>
+                <td>Total de Gastos</td>
+                <td id="total-gastos">$0</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
-        <h3>Historial de Gastos</h3>
-        <div id="resultado-gastos"> 
-        </div>
-
-        <h3>Ahorro Total</h3>
-        <div id="resultado-ahorro">
-            Ahorro Total: $0
-        </div>
-
-        <h3>Total de Gastos</h3>
-        <p id="total-gastos">$0</p>
-    </section>
 
     <script src="./src/presenter.js"></script>
 </body>
