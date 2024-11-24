@@ -4,12 +4,9 @@ let gastos = [];
 let espacio = [];
 
 const IngresoMetaAhorro = (metaAhorro, fechaLimite) => {
-    // Verificamos que la meta sea un número positivo y la fecha no sea vacía
     if (isNaN(metaAhorro) || metaAhorro <= 0 || !fechaLimite) {
-        return false;  // Si hay algún error, devolvemos false
+        return false;  
     }
-
-    // Devolvemos un objeto con las propiedades 'meta' y 'fechaLimite'
     return { meta: metaAhorro, fechaLimite: fechaLimite };
 };
 

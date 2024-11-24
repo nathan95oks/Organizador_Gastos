@@ -1,5 +1,5 @@
-import { getIngresos } from "./ingresos.js"; // Importamos getIngresos
-import { getGastos } from "./gastos.js"; // Importamos getGastos
+import { getIngresos } from "./ingresos.js"; 
+import { getGastos } from "./gastos.js"; 
 
 const CalcularAhorroTotal = () => {
     const totalSumarIngresos = getIngresos().reduce((total, ingreso) => total + ingreso.monto, 0); // Calculamos el total de ingresos
