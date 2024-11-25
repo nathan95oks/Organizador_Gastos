@@ -1,9 +1,12 @@
+const esGastoValido = (monto, fecha) => typeof monto === 'number' && !isNaN(monto) && Boolean(fecha);
+
 let gastos = [];
 const agregarGasto = (monto, fecha) => {
-    if (typeof monto === 'number' && !isNaN(monto) && fecha) {
+    if (esGastoValido(monto, fecha)) {
         gastos.push({ monto, fecha });
     }
 };
+
 
 const getGastos = () => {
     return gastos;
