@@ -1,8 +1,12 @@
-// EditarMetaAhorro.js
-let metaAhorro = []; // Espacio compartido para almacenar la meta
+
+let metaAhorro = [];
+
+function esMetaValida(nuevaMeta) {
+    return !isNaN(nuevaMeta) && nuevaMeta > 0;
+}
 
 export const editarMetaAhorro = (nuevaMeta) => {
-    if (isNaN(nuevaMeta) || nuevaMeta <= 0) {
+    if (!esMetaValida(nuevaMeta)) {
         return false;
     }
     if (metaAhorro.length === 0) {
